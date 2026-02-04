@@ -52,7 +52,7 @@ class Base(ABC):
 
 class BuiltinEmbed(Base):
     _FACTORY_NAME = "Builtin"
-    MAX_TOKENS = {"Qwen/Qwen3-Embedding-0.6B": 30000, "BAAI/bge-m3": 8000, "BAAI/bge-small-en-v1.5": 500}
+    MAX_TOKENS = {"Qwen/Qwen3-Embedding-0.6B": 30000, "BAAI/bge-m3": 8000, "BAAI/bge-small-en-v1.5": 500, "BAAI/bge-large-zh-v1.5": 512}
     _model = None
     _model_name = ""
     _max_tokens = 500

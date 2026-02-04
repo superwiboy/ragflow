@@ -265,7 +265,9 @@ services:
     env_file: .env
     networks:
       - ragflow
-    command: ["--model-id", "/data/${TEI_MODEL}", "--auto-truncate"]
+    volumes:
+      - /data/BAAI:/data/BAAI
+    command: ["--model-id", "/data/BAAI/bge-large-zh-v1.5", "--auto-truncate"]
     deploy:
       resources:
         reservations:

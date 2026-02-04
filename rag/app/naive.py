@@ -102,12 +102,15 @@ def by_mineru(
             try:
                 ocr_model = LLMBundle(tenant_id=tenant_id, llm_type=LLMType.OCR, llm_name=mineru_llm_name, lang=lang)
                 pdf_parser = ocr_model.mdl
+                # Get parser_config from kwargs
+                parser_config = kwargs.get("parser_config", {})
                 sections, tables = pdf_parser.parse_pdf(
                     filepath=filename,
                     binary=binary,
                     callback=callback,
                     parse_method=parse_method,
                     lang=lang,
+                    parser_config=parser_config,
                     **kwargs,
                 )
                 return sections, tables, pdf_parser
