@@ -203,6 +203,7 @@ class Base(ABC):
         return {
             LLMErrorCode.ERROR_RATE_LIMIT,
             LLMErrorCode.ERROR_SERVER,
+            LLMErrorCode.ERROR_TIMEOUT,
         }
 
     def _should_retry(self, error_code: str) -> bool:
@@ -1312,6 +1313,7 @@ class LiteLLMBase(ABC):
         return {
             LLMErrorCode.ERROR_RATE_LIMIT,
             LLMErrorCode.ERROR_SERVER,
+            LLMErrorCode.ERROR_TIMEOUT,
         }
 
     def _should_retry(self, error_code: str) -> bool:
