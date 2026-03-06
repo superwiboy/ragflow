@@ -251,9 +251,7 @@ services:
     env_file: .env
     networks:
       - ragflow
-    volumes:
-      - /tmp/tei-model:/model:ro
-    command: ["--model-id", "/model", "--auto-truncate"]
+    command: ["--model-id", "/data/${TEI_MODEL}", "--auto-truncate"]
     restart: unless-stopped
 
 
@@ -265,13 +263,9 @@ services:
     ports:
       - ${TEI_PORT-6380}:80
     env_file: .env
-    environment:
-      - HF_HUB_OFFLINE=1
-    volumes:
-      - /tmp/tei-model:/model:ro
     networks:
       - ragflow
-    command: ["--model-id", "/model", "--auto-truncate", "--max-batch-tokens", "4096"]
+    command: ["--model-id", "/data/${TEI_MODEL}", "--auto-truncate"]
     deploy:
       resources:
         reservations:
