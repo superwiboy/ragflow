@@ -250,7 +250,7 @@ services:
       - ${TEI_PORT-6380}:80
     env_file: .env
     volumes:
-      - /tmp/tei-model:/model:ro
+      - tei_data:/model:ro
     networks:
       - ragflow
     command: ["--model-id", "/model", "--auto-truncate", "--max-batch-tokens", "4096"]
@@ -266,7 +266,7 @@ services:
       - ${TEI_PORT-6380}:80
     env_file: .env
     volumes:
-      - /tmp/tei-model:/model:ro
+      - tei_data:/model:ro
     networks:
       - ragflow
     command: ["--model-id", "/model", "--auto-truncate", "--max-batch-tokens", "4096"]
