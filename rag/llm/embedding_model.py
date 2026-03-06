@@ -61,11 +61,16 @@ class BuiltinEmbed(Base):
     def __init__(self, key, model_name, **kwargs):
         logging.info(f"Initialize BuiltinEmbed according to settings.EMBEDDING_CFG: {settings.EMBEDDING_CFG}")
         embedding_cfg = settings.EMBEDDING_CFG
-        if not BuiltinEmbed._model and "tei-" in os.getenv("COMPOSE_PROFILES", ""):
+        # 修改：使用配置中的 factory 字段而非环境变量来决定是否初始化
+        # 这样可以在 task_executor 进程中也正常工作
+        if not BuiltinEmbed._model and embedding_cfg.get("factory") == "Builtin":
             with BuiltinEmbed._model_lock:
-                BuiltinEmbed._model_name = settings.EMBEDDING_MDL
-                BuiltinEmbed._max_tokens = BuiltinEmbed.MAX_TOKENS.get(settings.EMBEDDING_MDL, 500)
-                BuiltinEmbed._model = HuggingFaceEmbed(embedding_cfg["api_key"], settings.EMBEDDING_MDL, base_url=embedding_cfg["base_url"])
+                # Double-check after acquiring lock to avoid race condition
+                if not BuiltinEmbed._model:
+                    model_name = embedding_cfg.get("model") or settings.EMBEDDING_MDL
+                    BuiltinEmbed._model_name = model_name
+                    BuiltinEmbed._max_tokens = BuiltinEmbed.MAX_TOKENS.get(model_name, 500)
+                    BuiltinEmbed._model = HuggingFaceEmbed(embedding_cfg["api_key"], model_name, base_url=embedding_cfg["base_url"])
         self._model = BuiltinEmbed._model
         self._model_name = BuiltinEmbed._model_name
         self._max_tokens = BuiltinEmbed._max_tokens

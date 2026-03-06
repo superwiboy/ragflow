@@ -219,7 +219,12 @@ def init_settings():
     EMBEDDING_MDL = EMBEDDING_CFG.get("model", "") or ""
     compose_profiles = os.getenv("COMPOSE_PROFILES", "")
     if "tei-" in compose_profiles:
-        EMBEDDING_MDL = os.getenv("TEI_MODEL", EMBEDDING_MDL or "BAAI/bge-small-en-v1.5")
+        tei_model = os.getenv("TEI_MODEL", EMBEDDING_MDL or "BAAI/bge-small-en-v1.5")
+        EMBEDDING_MDL = tei_model
+        EMBEDDING_CFG["model"] = tei_model
+        # Ensure factory is set to Builtin for TEI models
+        if not EMBEDDING_CFG.get("factory"):
+            EMBEDDING_CFG["factory"] = "Builtin"
     RERANK_MDL = RERANK_CFG.get("model", "") or ""
     ASR_MDL = ASR_CFG.get("model", "") or ""
     IMAGE2TEXT_MDL = IMAGE2TEXT_CFG.get("model", "") or ""

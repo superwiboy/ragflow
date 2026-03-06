@@ -49,8 +49,9 @@ task_executor:
 user_default_llm:
   default_models:
     embedding_model:
+      factory: 'Builtin'
       api_key: 'xxx'
-      base_url: 'http://localhost:6380'
+      base_url: 'http://tei:80'
 # postgres:
 #   name: 'rag_flow'
 #   user: 'rag_flow'
