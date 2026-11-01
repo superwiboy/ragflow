@@ -2231,6 +2231,7 @@ var (
 		common.EnvMineruBackend,
 		"MINERU_SERVER_URL",
 		"MINERU_DELETE_OUTPUT",
+		common.EnvMineruTimeout,
 	}
 	mineruDefaultConfig = map[string]interface{}{
 		common.EnvMineruAPIServer: "",
@@ -2238,6 +2239,7 @@ var (
 		common.EnvMineruBackend:   "pipeline",
 		"MINERU_SERVER_URL":       "",
 		"MINERU_DELETE_OUTPUT":    1,
+		common.EnvMineruTimeout:   1800,
 	}
 	paddleOCREnvKeys = []string{
 		common.EnvPaddleOCRBaseUrl,
